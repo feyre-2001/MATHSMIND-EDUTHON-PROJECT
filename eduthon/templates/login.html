@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            background-color;
+        }
+
+        header {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 168, 255, 0.3), rgba(0, 168, 255, 0.3)), url("{{ url_for('static',filename = 'mountain.png') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .content {
+            padding-left: 60px;
+            padding-right: 60px;
+            padding-bottom: 20px;
+            transition: 1s;
+        }
+
+        .content:hover {
+            -webkit-box-shadow: 10px 2px 69px 2px rgba(0, 33, 199, 1);
+            -moz-box-shadow: 10px 2px 69px 2px rgba(0, 33, 199, 1);
+            box-shadow: 10px 2px 69px 2px rgba(0, 33, 199, 1);
+        }
+
+        header h1 {
+            font-family: 'Pacifico', cursive;
+            padding-left: 40px;
+            padding-bottom: 10px;
+            font-size: 42px;
+            color: rgba(44, 145, 212, 0.959);
+            animation: tada;
+            animation-duration: 1s;
+
+        }
+
+        header hr {
+            padding: 2px;
+            margin: auto;
+            width: 50%;
+            background: rgb(15, 20, 53);
+            border: none;
+            border-radius: 5px;
+
+        }
+
+        header p {
+            padding-bottom: 10px;
+        }
+
+        header input {
+            border: none;
+            background: transparent;
+            outline: none;
+            border-bottom: 2px solid rgb(13, 94, 199);
+            width:170px;
+            transition: .5s;
+        }
+        header input:hover {
+            transform: scale(1.2);
+        }
+
+        header button {
+            margin-left: 35px;
+            border-radius: 20px;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            outline: none;
+            background: rgba(255, 77, 148,0.8);
+
+            color: white;
+            font-size: 12px;
+            font-weight: 550;
+            letter-spacing: 0.9px;
+            border: none;
+            transition: .5s;
+            animation: headShake;
+            animation-duration: 1s;
+        }
+
+        header button:hover {
+            transform: scale(1.2);
+            background: rgba(255, 77, 148,1.0);
+            box-shadow: 0 7px 20px rgba(255, 255, 255,0.6);
+            
+            cursor:pointer;
+        }
+        ::placeholder { 
+          font-size: 14px;
+          font-weight: 500;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <header>
+        <div class="content">
+            <h1>login</h1>
+            <hr>
+            </hr>
+            <br>
+            <form  name="myform" onsubmit="return validateform()"  method = 'POST' autocomplete="off">
+            <p><input type="text" placeholder=" Username" name="username" required></input></p>
+            <br>
+            <p><input type="password" placeholder=" Password" name="password" required></input></p>
+            <br>
+            <p><button type="submit" formmethod="post" value="Submit">SUBMIT</button></p>
+            </form>
+        </div>
+    </header>
+
+<script>
+    {% if exist %}
+    alert('Either Username or password is wrong')
+    {% endif %}
+    function validateform(){
+        var letters=/^[a-zA-Z]+$/;
+        var check= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        var valusername=document.forms["myform"]["username"].value;        
+        var valpassword=document.forms["myform"]["password"].value;         
+       
+        if(valusername==""){
+            alert("Username can not be empty");
+            return false;
+        }
+
+        if(valusername.indexOf(' ')>=0){
+            alert("\tInvalid Username !!\nCan not contain white space");
+            return false;
+        }
+
+        if(!(valusername[0].match(letters))){
+            alert("\tInvalid Username !!\nShould start with Alphabet");       
+            return false;
+        }
+        
+        if(valpassword==""){
+            alert("Password can not be empty");
+            return false;
+        }
+
+        // condition to check for white spaces in password
+        if(valpassword.indexOf(' ')>=0){
+            alert("\tInvalid Password !!\nCan not contain white space");
+            return false;
+        }
+
+        if(valpassword.length<8){
+            alert("Wrong Password");
+            return false;
+        }
+        if(!(valpassword.match(check))){
+            alert("Invalid Password !!");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+
+</html>
